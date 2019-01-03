@@ -10,18 +10,20 @@ import java.io.IOException;
 public class CarGraphic extends MovableImage {
     private static final String IMAGE_LOCATION = "src\\img\\carblank3.png";
     private static final String IMG_ERR_MSG = "Could not read image:" + IMAGE_LOCATION;
-    //private static final int CAR_WIDTH = 339;
-    //private static final int CAR_LENGTH = 678;
+    public static final int CAR_IMG_WIDTH = 339;
+    public static final int CAR_IMG_LENGTH = 678;
     private BufferedImage carImage;
-    private int x, velX, y, velY;
+    private int x, velX, accX, y, velY, accY;
 
-    public CarGraphic(int x, int velX, int y, int velY) {
+    public CarGraphic(int x, int velX,int accX, int y, int velY, int accY, double xScale, double yScale) {
         this.x = x;
         this.velX = velX;
         this.y = y;
         this.velY = velY;
+        this.accX = accX;
+        this.accY = accY;
         try {
-            carImage = ImageIO.read(new File(IMAGE_LOCATION));
+            carImage = ImageManipulator.scaleImage(ImageIO.read(new File(IMAGE_LOCATION)), xScale, yScale);
         } catch (IOException e) {
             System.out.println(IMG_ERR_MSG);
         }
@@ -65,12 +67,12 @@ public class CarGraphic extends MovableImage {
 
     @Override
     public int getWidth() {
-        return carImage.getWidth();
+        return ImageManipulator.widthOfTranslatedImage(carImage.getWidth(), carImage.getHeight(), getAngle());
     }
 
     @Override
     public int getHeight() {
-        return carImage.getHeight();
+        return ImageManipulator.heightOfTranslatedImage(carImage.getWidth(), carImage.getHeight(), getAngle());
     }
 
     @Override
@@ -91,5 +93,25 @@ public class CarGraphic extends MovableImage {
     @Override
     public void setVelY(int velY) {
         this.velY = velY;
+    }
+
+    @Override
+    public int getAccX() {
+        return accX;
+    }
+
+    @Override
+    public void setAccX(int accX) {
+        this.accX = accX;
+    }
+
+    @Override
+    public int getAccY() {
+        return accY;
+    }
+
+    @Override
+    public void setAccY(int accY) {
+        this.accY = accY;
     }
 }

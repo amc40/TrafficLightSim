@@ -8,6 +8,8 @@ public abstract class MovableImage extends GenericImage {
 
     abstract int getVelX();
     abstract int getVelY();
+    abstract int getAccX();
+    abstract int getAccY();
 
     /** Returns current angle in degrees.
      *
@@ -18,5 +20,6 @@ public abstract class MovableImage extends GenericImage {
     abstract void setY(int y);
     abstract void setVelX(int velX);
     abstract void setVelY(int velY);
-
+    abstract void setAccX(int accX);
+    abstract void setAccY(int accY);
 }
